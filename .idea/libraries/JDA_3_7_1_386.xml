@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="JDA-3.7.1_386">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/JDA-3.7.1_386.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/Downloads/JDA-3.7.1_386-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES />
+  </library>
+</component>
