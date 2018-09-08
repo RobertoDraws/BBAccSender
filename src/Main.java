@@ -3,8 +3,10 @@ import com.google.gson.reflect.TypeToken;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
+import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.events.Event;
 import net.dv8tion.jda.core.events.ReadyEvent;
+import net.dv8tion.jda.core.events.guild.member.GuildMemberLeaveEvent;
 import net.dv8tion.jda.core.hooks.EventListener;
 
 import javax.security.auth.login.LoginException;
@@ -14,6 +16,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -30,6 +34,7 @@ public class Main implements EventListener {
 
         jda = new JDABuilder(AccountType.BOT)
                 .setToken("NDczNjMwMDA3MjI3NTgwNDE2.DkEt-A.2OJznh2wlVEr06CizRrtCLyIGXE")
+                //.setToken("NDUwMDM5NDY0MzU4ODM4Mjcy.DlUqCw.bUlnH2TuzDweUzIu6uSAiyEljG8")
                 .addEventListener(new Main())
                 .addEventListener(new MessageListener())
                 .buildBlocking();
@@ -39,6 +44,11 @@ public class Main implements EventListener {
     {
         if (event instanceof ReadyEvent)
             System.out.println("Bot is ready!");
+        else if(event instanceof GuildMemberLeaveEvent){
+            GuildMemberLeaveEvent e = (GuildMemberLeaveEvent)event;
+            String user = e.getUser().getName() + "#" + e.getUser().getDiscriminator();
+            e.getGuild().getTextChannelById("425800280588812298").sendMessage(user + " has left!").queue();
+        }
     }
 
     public static void loadAllAccounts(){
@@ -60,11 +70,11 @@ public class Main implements EventListener {
         loadAccountsList("Fortnite");
         loadAccountsList("Minecraft");
         loadAccountsList("Eurosport");
-        loadAccountsList("Direct");
+        loadAccountsList("DirectTV");
         loadAccountsList("Dominos");
         loadAccountsList("Reddit");
         loadAccountsList("Crunchyroll");
-        loadAccountsList("VPN");
+        loadAccountsList("VPNZenmate");
         loadAccountsList("Subway");
         loadAccountsList("CBS");
         loadAccountsList("Hulu");
@@ -169,6 +179,12 @@ public class Main implements EventListener {
         }catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    public static void log(String s){
+        String date = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(LocalDateTime.now());
+        String dateTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(LocalDateTime.now());
+        appendToFile("logs/" + date + ".txt", "[" + dateTime + "] " + s + "\n");
     }
 
 }

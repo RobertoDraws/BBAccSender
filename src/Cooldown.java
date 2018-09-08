@@ -39,7 +39,7 @@ public class Cooldown {
                     Instant event = fmt.parse(c.timeCooldownOver, Instant::from);
                     Instant now = Instant.now();
                     Duration diff = Duration.between(now, event);
-                    System.out.println(c.getUid() + " / " + diff.toMillis());
+                    System.out.println("Loaded cooldown for " + c.getUid() + " waiting " + diff.toMillis() + " millis.");
                     if(diff.toMillis() > 0) Thread.sleep(diff.toMillis());
                     cooldowns.remove(c.getUid());
                 } catch (Exception e){
