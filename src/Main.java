@@ -33,8 +33,7 @@ public class Main implements EventListener {
         loadCooldownList();
 
         jda = new JDABuilder(AccountType.BOT)
-                .setToken("NDczNjMwMDA3MjI3NTgwNDE2.DkEt-A.2OJznh2wlVEr06CizRrtCLyIGXE")
-                //.setToken("NDUwMDM5NDY0MzU4ODM4Mjcy.DlUqCw.bUlnH2TuzDweUzIu6uSAiyEljG8")
+                .setToken("bottoken")
                 .addEventListener(new Main())
                 .addEventListener(new MessageListener())
                 .buildBlocking();
